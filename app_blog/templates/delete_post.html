@@ -1,0 +1,7 @@
+<h2>Confirmação de Exclusão</h2>
+<p>Você tem certeza de que deseja excluir o post "{{ post.titulo }}"?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmar Exclusão</button>
+</form>

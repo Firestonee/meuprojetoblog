@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for post in posts %}
+    <div class="card w-100vh mb-3">
+    <div class="card-body">
+        <div class="col-md-2 ms-5 ">
+            <img src="{{ post.img_url }}" style="width: 150px; height: 100%;" alt="{{ post.titulo }}">
+          </div>
+        <h5 class="card-title">{{post.titulo}}</h5>
+        <p class="card-text">{{post.resumo}}</p>
+
+        <p class="publicado_em">Publicado em: {{post.publicado_em}}</p>
+        <a href="{{post.slug}}"class='btn btn-primary'>Acessar</a>
+        
+        {% if request.user.is_staff %}
+        <a href="{% url 'edit_admin' slug=post.slug %}" class="btn btn-primary">Editar</a>
+        <a href="{% url 'delete_post' slug=post.slug %}" class="btn btn-primary">Excluir</a>
+        {% endif %}
+    </div>
+    </div>
+{% endfor %}
+{% endblock %}

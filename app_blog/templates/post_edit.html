@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="conteudo mx-5">
+<form  method="POST" class="mx-5">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Titulo</label>
+      <input type="text" value="{{post.titulo}}" name="titulo" class="form-control" id="titulo" aria-describedby="titulo do post">
+    </div>
+    <div class="form-floating">
+        <label for="resumo">Resumo</label><br><br>
+        <textarea class="form-control"  name="resumo" placeholder="Resumo do Post" id="resumo">{{post.resumo}}</textarea><br>
+    </div>
+    <div class="form-floating">
+        <label for="conteudo">Conteudo</label><br><br>
+        <textarea class="form-control" name="conteudo" placeholder="Conteudo do Post" id="conteudo">{{post.conteudo}}</textarea>
+    </div><br>
+    <div class="mb-3">
+        <label for="autor" class="form-label">Autor</label>
+        <input type="text" value="{{post.autor}}" name="autor" class="form-control" id="autor">
+    </div>
+    <div class="form-floating">
+        <label for="img_url">Imagem</label><br><br>
+        <textarea class="form-control"  name="img_url" placeholder="endereço da imagem" id="img_url">{{post.img_url}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="slug" class="form-label">Slug</label>
+        <input type="text" value="{{post.slug}}" name="slug" class="form-control" id="slug">
+    </div>
+    <button type="submit" class="btn btn-primary ">Postar</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<span>
+    <h1>{{ post.titulo }}</h1><br>
+    {{ post.conteudo }} <br>
+    {{ post.publicado_em }}<br><br>
+</span><hr>
+<div class="container">
+    <h2 class='pt-4'>Escreva um comentario</h2>
+
+    {% if user.is_authenticated %}
+    <p>Olá {{user.username}}</p>
+    <form method="post" action="{% url 'post_details' slug=post.slug %}" class="pt-2">
+        {% csrf_token %}
+  <div class="mb-3">
+    <label for="conteudo" class="form-label">Conteudo:</label>
+    <textarea class="form-control" name="conteudo" id="conteudo" style="width: 50%" rows="5"></textarea>
+  </div>
+  <button  class="btn btn-primary">Comentar</button>
+</form>
+{% else %}
+<p>Faça <a href="{% url 'login' %}">Login</a> para comentar ou <a href="{% url 'signup' %}">Registre-se</a></p>
+
+{% endif %}
+</div>
+<br><br><hr>
+{% for comentario in comentarios %}
+<div class="card w-75 mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{comentario.nome}}</h5>
+      <p class="card-text">{{comentario.conteudo}}</p>
+      <p class="card-text">{{comentario.publicado_em}}</p>
+
+    </div>
+  </div>
+{% endfor %}
+
+<form action="{% url 'post_details' slug=post.slug %}" method="post">
+    {% csrf_token %}
+    <label for="username">Nome:</label><br>
+    <input type="text" id="nome" name="nome" required><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="conteudo"><strong>Comentário:</strong></label><br>
+    <textarea name="conteudo" id="conteudo" cols="30" rows="10"></textarea><br>
+    <button type="submit">Comentar</button> 
+</form>
+<br><br>
+
+{% for comentario in comentarios %}
+<div class="card">
+    <small><strong>Publicado em: </strong>{{comentario.publicado_em}}</small><br>
+    <small><strong>Autor: {{comentario.nome}}</strong></small>
+    <p>{{comentario.conteudo}}</p>
+    
+</div>
+{% endfor %}
+{% endblock %}
